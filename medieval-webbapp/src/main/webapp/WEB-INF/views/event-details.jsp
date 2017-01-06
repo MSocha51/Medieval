@@ -16,10 +16,11 @@
 				
 				Start:${eventDate}
 				<br />
-				<h2>${vacanices}</h2>
+				<h2>${eventFullMsg}</h2>
 				<div id="sing" class="form">
 					<sec:authorize access="isAuthenticated()">
-						<form:form action="event-details-${medievalEvent.id}/sing" method="post">
+						<c:url value="event-details-${medievalEvent.id }/sing" var="url" />
+						<form:form action="${url}" method="post">
 					 		<input type="submit" value="Sing for this Event"/>
 						</form:form>	
 					</sec:authorize>
