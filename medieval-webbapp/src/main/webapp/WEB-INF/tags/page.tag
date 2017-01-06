@@ -17,7 +17,7 @@
 </head>
 <t:wrapper>
 	<jsp:attribute name="topPage">
-		<div id="header">Your first medieval calendar.</div>
+		<div id="header">Your first medieval calendar</div>
 
 		<div id="menu">
 			<div class="menu-item">

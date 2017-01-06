@@ -32,7 +32,7 @@ public class User {
 	@JoinTable(name="events_users",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
 			inverseJoinColumns= @JoinColumn(name="event_id", referencedColumnName="id"))
-	private Set<MedievalEvent> signedEvents =new HashSet<MedievalEvent>();;
+	private Set<MedievalEvent> signedEvents =new HashSet<MedievalEvent>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id")
