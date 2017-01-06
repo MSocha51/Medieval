@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:page title="${medievalEvent.name }">
@@ -19,7 +20,7 @@
 				<h2>${eventFullMsg}</h2>
 				<div id="sing" class="form">
 					<sec:authorize access="isAuthenticated()">
-						<c:url value="event-details-${medievalEvent.id }/sing" var="url" />
+						<spring:url value="/event-details-${medievalEvent.id }/sing" var="url" />
 						<form:form action="${url}" method="post">
 					 		<input type="submit" value="Sing for this Event"/>
 						</form:form>	

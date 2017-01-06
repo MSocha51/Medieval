@@ -8,11 +8,11 @@
  xmlns:security="http://www.springframework.org/schema/security"
  xsi:schemaLocation="
  http://www.springframework.org/schema/mvc 
- http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+ http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
  http://www.springframework.org/schema/beans 
- http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+ http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
  http://www.springframework.org/schema/context 
- http://www.springframework.org/schema/context/spring-context-4.2.xsd
+ http://www.springframework.org/schema/context/spring-context-4.3.xsd
  http://www.springframework.org/schema/tx
  http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
  http://www.springframework.org/schema/data/jpa
@@ -20,8 +20,7 @@
  http://www.springframework.org/schema/security
  http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
-    <context:component-scan base-package="com.sumarlidi" /> <!-- Chcemy automatycznie obsługiwać wszystkie klasy z adnotacjami w tym pakiecie -->
-    <context:annotation-config /> <!-- To na przyszłość, pozwoli nam korzystać z adnotacji także w klasach, które byśmy skonfigurowali ręcznie -->
+    <context:component-scan base-package="com.sumarlidi" /> 
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix">
