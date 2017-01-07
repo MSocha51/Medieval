@@ -29,7 +29,7 @@ public class User {
 	@Column(nullable=false)
 	private String password;
 	private String team;	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="events_users",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
 			inverseJoinColumns= @JoinColumn(name="event_id", referencedColumnName="id"))
@@ -38,8 +38,8 @@ public class User {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id")
 	private Role role;	
-	@OneToMany(mappedBy="owner")
-	private Set<MedievalEvent> ownEvents;
+	@OneToMany(mappedBy="owner",fetch = FetchType.EAGER)
+	private Set<MedievalEvent> ownEvents = new HashSet<MedievalEvent>();
 	
 
 
@@ -114,7 +114,6 @@ public class User {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nick == null) ? 0 : nick.hashCode());
-		result = prime * result + ((ownEvents == null) ? 0 : ownEvents.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
@@ -144,12 +143,7 @@ public class User {
 			if (other.nick != null)
 				return false;
 		} else if (!nick.equals(other.nick))
-			return false;
-		if (ownEvents == null) {
-			if (other.ownEvents != null)
-				return false;
-		} else if (!ownEvents.equals(other.ownEvents))
-			return false;
+			return false;		
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -171,7 +165,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nick=" + nick + ", email=" + email + ", password=" + password + ", team=" + team
-				+ ", role=" + role + ", ownEvents=" + ownEvents + "]";
+				+ ", role=" + role+" ]";
 	}
 
 	

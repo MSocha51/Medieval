@@ -122,6 +122,8 @@ public class MedievalEvent {
 		this.owner = owner;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,7 +133,6 @@ public class MedievalEvent {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((maxParticipants == null) ? 0 : maxParticipants.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result + ((promoter == null) ? 0 : promoter.hashCode());
 		result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
@@ -171,11 +172,6 @@ public class MedievalEvent {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (owner == null) {
-			if (other.owner != null)
-				return false;
-		} else if (!owner.equals(other.owner))
 			return false;
 		if (promoter == null) {
 			if (other.promoter != null)

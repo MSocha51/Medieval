@@ -22,7 +22,7 @@ public class EventsDetailsController extends PageController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/event-details-{id}")
+	@RequestMapping({"/event-details-{id}","/event-{id}"})
 	public String eventDetails(@PathVariable("id") Long id ,Model model,String vacanices){
 		if("fasle".equals(vacanices)){
 			model.addAttribute("eventFullMsg","Event is full");			
@@ -34,7 +34,7 @@ public class EventsDetailsController extends PageController {
 		
 	}
 	@PreAuthorize(value = "isAuthenticated()")
-	@PostMapping("/event-details-{id}/sing")
+	@PostMapping({"/event-details-{id}/sing","/event-{id}/sing"})
 	public String singUserOnEvent(@PathVariable("id") Long eventId ,Model model){
 		Principal principal = SecurityContextHolder.getContext().getAuthentication();
 		String email = principal.getName();
