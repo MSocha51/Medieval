@@ -10,6 +10,12 @@ public class MedievalEventService {
 	
 	@Autowired
 	private MedievalEventDAO medievalEventDao;
+	
+	public void acceptEvent(Long id) {
+		MedievalEvent event = getEventById(id);
+		event.setAccepted(true);
+		add(event);
+	}
 
 	public MedievalEvent getEventById(Long id){
 		return medievalEventDao.findOne(id);
@@ -29,4 +35,6 @@ public class MedievalEventService {
 		medievalEventDao.save(event);
 		
 	}
+
+
 }

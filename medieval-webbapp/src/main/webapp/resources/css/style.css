@@ -128,7 +128,7 @@ body a:link, body a:visited, body a:hover, body a:active {
 	vertical-align: text-top;
 }
 
-.form input, .form textarea {
+.form input, .form textarea, .button{
 	margin-top: 20px;
 	padding: 5px;
 	-webkit-border-radius: 5px;
@@ -143,9 +143,14 @@ body a:link, body a:visited, body a:hover, body a:active {
 	font-family: 'Cormorant Garamond', serif;
 }
 
-.form input[type=submit] {
+.form input[type=submit],
+.button {
 	background-color: rgb(26, 148, 49);
 	border: 2px ridge rgba(230, 245, 226, 0.8);
+}
+
+.button {
+	width: auto;
 }
 
 .form input[type=submit]:hover {

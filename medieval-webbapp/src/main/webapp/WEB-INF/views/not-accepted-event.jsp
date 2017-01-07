@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <t:page title="List of events">
 	<c:if test="${empty notAcceptedListOfEvents}"><h1>There are no unaccepted events</h1></c:if>
@@ -16,8 +17,10 @@
 				
 				<p>${event.shortDescription }</p>
 				
-				Start:${eventDate}	
+				Start:${eventDate}
+				<br />
+				<input class="button" type="submit" value="Accept Event" form="accept-${event.id}" />
 		</div>
-	</a>
+		<form:form id="accept-${event.id}" action="./accept-${event.id}" method="POST" />
 	</c:forEach>
 </t:page>
