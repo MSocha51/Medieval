@@ -21,6 +21,9 @@ public class MedievalEventService {
 	public Iterable<MedievalEvent> getAcceptedEvents(){
 		return medievalEventDao.findByAccepted(true);
 	}
+	public Iterable<MedievalEvent> getUnacceptedEvents(){
+		return medievalEventDao.findByAccepted(false);
+	}
 
 	public void add(MedievalEvent event) {
 		medievalEventDao.save(event);

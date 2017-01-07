@@ -36,7 +36,7 @@
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">
 				<div class="menu-item">
-					<a href='<c:url value="./add"/>'>Add new event</a>
+					<a href='<c:url value="./notAcceptedEvent"/>'>Add new event</a>
 				</div>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">

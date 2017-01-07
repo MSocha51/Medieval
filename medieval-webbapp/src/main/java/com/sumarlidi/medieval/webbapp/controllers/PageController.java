@@ -22,7 +22,7 @@ public abstract class PageController {
 	
 	@ModelAttribute("listOfEvents")
 	public Iterable<MedievalEvent> events(){
-		return medievalEventService.getEvents();
+		return medievalEventService.getAcceptedEvents();
 	}
 	
 	@ModelAttribute("user")

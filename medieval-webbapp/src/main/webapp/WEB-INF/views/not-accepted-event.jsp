@@ -6,8 +6,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:page title="List of events">
-	<c:if test="${empty listOfEvents }"><h1>There are no incoming events</h1></c:if>
-	<c:forEach items="${listOfEvents}" var="event" varStatus="index">
+	<c:if test="${empty notAcceptedListOfEvents}"><h1>There are no unaccepted events</h1></c:if>
+	<c:forEach items="${notAcceptedListOfEvents}" var="event" varStatus="index">
 	<a href='<c:url value="event-details-${event.id}"/>'>
 		<div class="event-item">
 			<fmt:formatDate value="${event.startDate }" type="date" pattern="dd-MM-yyyy"
