@@ -42,6 +42,7 @@ public class AddEventsController extends PageController {
 		event.setDescription(addEventsDTO.getDescription());
 		event.setStartDate(addEventsDTO.getStartDate());
 		event.setShortDescription(addEventsDTO.getShortDescription());
+		event.setAccepted(false);
 		medievalEventService.add(event);
 	}
 }
