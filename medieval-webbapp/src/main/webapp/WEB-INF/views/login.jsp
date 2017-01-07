@@ -8,8 +8,8 @@
 		<form:form action="login" method="post">
 			${error }<br/>
 			${message }<br/>
-			<input type="text" name="nick" /><br/>
-   			<input type="password" name="password" /><br/>
+			<input type="text" name="email" placeholder="Email" /><br/>
+   			<input type="password" name="password" placeholder="Password" /><br/>
 			<input type="submit" value="Login!" />
 		</form:form>
 	</div>
