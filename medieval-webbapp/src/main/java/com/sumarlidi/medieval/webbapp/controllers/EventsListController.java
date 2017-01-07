@@ -10,7 +10,7 @@ public class EventsListController extends PageController{
 	@RequestMapping(value={"/list","/"})
 	public String medievalEventsList(Model model){
 		SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("events",  medievalEventService.getEvents());
+		model.addAttribute("events",  medievalEventService.getAcceptedEvents());
 		return "list";
 	}
 

@@ -32,6 +32,16 @@ public class MedievalEvent {
 	private Long id;
 	@ManyToMany(mappedBy = "signedEvents", fetch = FetchType.EAGER)
 	private Set<User> participants = new HashSet<User>();
+	
+	private Boolean accepted;
+
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
 
 	public String getName() {
 		return name;
@@ -101,10 +111,12 @@ public class MedievalEvent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((accepted == null) ? 0 : accepted.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((maxParticipants == null) ? 0 : maxParticipants.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((promoter == null) ? 0 : promoter.hashCode());
 		result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
@@ -119,6 +131,11 @@ public class MedievalEvent {
 		if (getClass() != obj.getClass())
 			return false;
 		MedievalEvent other = (MedievalEvent) obj;
+		if (accepted == null) {
+			if (other.accepted != null)
+				return false;
+		} else if (!accepted.equals(other.accepted))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -139,6 +156,11 @@ public class MedievalEvent {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (promoter == null) {
+			if (other.promoter != null)
+				return false;
+		} else if (!promoter.equals(other.promoter))
+			return false;
 		if (shortDescription == null) {
 			if (other.shortDescription != null)
 				return false;
@@ -151,5 +173,14 @@ public class MedievalEvent {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "MedievalEvent [name=" + name + ", promoter=" + promoter + ", startDate=" + startDate + ", description="
+				+ description + ", shortDescription=" + shortDescription + ", maxParticipants=" + maxParticipants
+				+ ", id=" + id + ", accepted=" + accepted + "]";
+	}
+
+	
 
 }
