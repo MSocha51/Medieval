@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,9 @@ public class MedievalEvent {
 	private Long id;
 	@ManyToMany(mappedBy = "signedEvents", fetch = FetchType.EAGER)
 	private Set<User> participants = new HashSet<User>();
+	@ManyToOne
+	@JoinColumn(name="owner_id")
+	private User owner;
 	
 	private Boolean accepted;
 
@@ -106,6 +112,15 @@ public class MedievalEvent {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
+	
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 
 	@Override
 	public int hashCode() {
@@ -116,6 +131,7 @@ public class MedievalEvent {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((maxParticipants == null) ? 0 : maxParticipants.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result + ((promoter == null) ? 0 : promoter.hashCode());
 		result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
@@ -156,6 +172,11 @@ public class MedievalEvent {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (owner == null) {
+			if (other.owner != null)
+				return false;
+		} else if (!owner.equals(other.owner))
+			return false;
 		if (promoter == null) {
 			if (other.promoter != null)
 				return false;
@@ -178,8 +199,10 @@ public class MedievalEvent {
 	public String toString() {
 		return "MedievalEvent [name=" + name + ", promoter=" + promoter + ", startDate=" + startDate + ", description="
 				+ description + ", shortDescription=" + shortDescription + ", maxParticipants=" + maxParticipants
-				+ ", id=" + id + ", accepted=" + accepted + "]";
+				+ ", id=" + id + ", owner=" + owner + ", accepted=" + accepted + "]";
 	}
+
+	
 
 	
 
