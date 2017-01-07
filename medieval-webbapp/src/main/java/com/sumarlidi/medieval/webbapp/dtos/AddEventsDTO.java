@@ -2,6 +2,7 @@ package com.sumarlidi.medieval.webbapp.dtos;
 
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,6 +29,7 @@ public class AddEventsDTO {
 	
 	private String shortDescription;
 	@Range(min=0, message="Number of participants must by higher than 0")
+	@Digits(message="Must be a number", fraction = 0, integer = 3)
 	private int maxParticipants;
 	
 	
