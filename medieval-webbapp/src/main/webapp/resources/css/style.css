@@ -194,7 +194,12 @@ body a:link, body a:visited, body a:hover, body a:active {
 .article{
 	text-align: justify;
 }
+.article a{
+	color: gray;
+	font-weight: 700;
+	padding-left:4em;
 
+}
 
 #footer {
 	margin-top: 10px;
