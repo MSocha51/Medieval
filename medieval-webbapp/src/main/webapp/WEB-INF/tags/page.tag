@@ -39,7 +39,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<div class="menu-item" id="hello-item">
-					Hello <sec:authentication property="principal.username" />
+					Hello ${user.nick}
 				</div>
 			</sec:authorize>
 			
