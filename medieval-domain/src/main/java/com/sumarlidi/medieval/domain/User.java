@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,7 @@ public class User {
 	@Column(nullable=false)
 	private String password;
 	private String team;	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="events_users",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
 			inverseJoinColumns= @JoinColumn(name="event_id", referencedColumnName="id"))
@@ -36,11 +37,11 @@ public class User {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id")
-	private Role role;
+	private Role role;	
+	@OneToMany(mappedBy="owner",fetch = FetchType.EAGER)
+	private Set<MedievalEvent> ownEvents = new HashSet<MedievalEvent>();
 	
-	public Role getRoles() {
-		return role;
-	}
+
 
 	public void setRole(Role role) {
 		this.role = role;
@@ -94,6 +95,18 @@ public class User {
 		this.password = password;
 	}
 
+	public Set<MedievalEvent> getOwnEvents() {
+		return ownEvents;
+	}
+
+	public void setOwnEvents(Set<MedievalEvent> ownEvents) {
+		this.ownEvents = ownEvents;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,6 +114,8 @@ public class User {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nick == null) ? 0 : nick.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
 		return result;
 	}
@@ -128,6 +143,16 @@ public class User {
 			if (other.nick != null)
 				return false;
 		} else if (!nick.equals(other.nick))
+			return false;		
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
 		if (team == null) {
 			if (other.team != null)
@@ -139,8 +164,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nick=" + nick + ", email=" + email + ", team=" + team + "]";
+		return "User [id=" + id + ", nick=" + nick + ", email=" + email + ", password=" + password + ", team=" + team
+				+ ", role=" + role+" ]";
 	}
+
+	
 	
 	
 

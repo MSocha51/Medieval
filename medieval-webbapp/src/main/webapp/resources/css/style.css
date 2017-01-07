@@ -74,12 +74,13 @@ body a:link, body a:visited, body a:hover, body a:active {
 	background-color: rgb(0, 187, 51);
 	
 }
-#hello-item{
+#hello-item,
+#logout-item{
 	float: right;
 	border-left: 1px solid black;
-	border-right: none;
-	color: white;
+	border-right: none;	
 }
+
 
 #topbar {
 	margin-top: 10px;
@@ -193,7 +194,12 @@ body a:link, body a:visited, body a:hover, body a:active {
 .article{
 	text-align: justify;
 }
+.article a{
+	color: gray;
+	font-weight: 700;
+	padding-left:4em;
 
+}
 
 #footer {
 	margin-top: 10px;

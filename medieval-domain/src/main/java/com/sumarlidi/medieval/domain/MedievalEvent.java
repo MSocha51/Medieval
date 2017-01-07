@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,9 @@ public class MedievalEvent {
 	private Long id;
 	@ManyToMany(mappedBy = "signedEvents", fetch = FetchType.EAGER)
 	private Set<User> participants = new HashSet<User>();
+	@ManyToOne
+	@JoinColumn(name="owner_id")
+	private User owner;
 	
 	private Boolean accepted;
 
@@ -106,6 +112,17 @@ public class MedievalEvent {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
+	
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -178,8 +195,10 @@ public class MedievalEvent {
 	public String toString() {
 		return "MedievalEvent [name=" + name + ", promoter=" + promoter + ", startDate=" + startDate + ", description="
 				+ description + ", shortDescription=" + shortDescription + ", maxParticipants=" + maxParticipants
-				+ ", id=" + id + ", accepted=" + accepted + "]";
+				+ ", id=" + id + ", owner=" + owner + ", accepted=" + accepted + "]";
 	}
+
+	
 
 	
 

@@ -9,7 +9,6 @@ import com.sumarlidi.medieval.application.validators.EmailNotExist;
 import com.sumarlidi.medieval.application.validators.UserNotExist;
 
 public class RegisterDTO {
-	@UserNotExist
 	@NotBlank(message = "Cannot be blank")
 	@Size(min = 3, message = "Must be at least 3 letter size")
 	private String nick;
