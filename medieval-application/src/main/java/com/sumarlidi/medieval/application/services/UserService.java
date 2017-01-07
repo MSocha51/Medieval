@@ -24,9 +24,14 @@ public class UserService {
 
 	@Transactional
 	public void addUser(User user) {
-		Role role = roleDao.findByRole("USER_ROLE");
+		Role role = roleDao.findByRole("ROLE_USER");
 		user.setRole(role);
 		userDao.save(user);
+	}
+	public void addUserWithRole(User user, String roleName){
+		Role role = roleDao.findByRole(roleName);
+		user.setRole(role);
+		userDao.save(user);		
 	}
 
 	public User getUserById(Long id) {
@@ -60,5 +65,11 @@ public class UserService {
 
 	public boolean ifUserEmailExist(String userEmail) {
 		return userDao.existsByEmail(userEmail);
+	}
+	public void addIfNotExist(User user, String roleName) {
+		if(!ifUserNickExist(user.getNick())){
+			addUserWithRole(user,roleName);
+		}
+		
 	}
 }

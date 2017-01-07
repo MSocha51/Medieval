@@ -5,7 +5,7 @@
 <t:page title="Login">
 	<div id="login" class="form">
 		<form:form action="login" method="post">
-			<input type="text" name="nick" placeholder="Nick" /><br/>
+			<input type="text" name="email" placeholder="Emial" /><br/>
    			<input type="password" name="password" placeholder="Password"/><br/>
 			<input type="submit" value="Login!" />
 		</form:form>

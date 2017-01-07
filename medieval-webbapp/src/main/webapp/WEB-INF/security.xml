@@ -20,7 +20,7 @@
 	    <form-login login-page="/login"
 	        default-target-url="/list"
 	        authentication-failure-url="/login?error=1"
-	        username-parameter="nick"
+	        username-parameter="email"
 	        password-parameter="password" />
 	    <logout logout-success-url="/list" />
 	    <csrf />

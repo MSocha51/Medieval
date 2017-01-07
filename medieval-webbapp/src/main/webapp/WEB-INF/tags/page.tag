@@ -22,16 +22,23 @@
 		<div id="menu">
 			<div class="menu-item">
 				<a href='<c:url value="./list"/>'>List of events</a>
-			</div>
-			<div class="menu-item">
-				<a href='<c:url value="./add"/>'>Add new event</a>
-			</div>
+			</div>			
 			<div class="menu-item">
 				<a href='<c:url value="./calendar"/>'>Calendar</a>
 			</div>
 			<div class="menu-item">
 				<a href='<c:url value="./about-me"/>'>About project</a>
 			</div>
+			<sec:authorize access="isAuthenticated()">
+				<div class="menu-item">
+					<a href='<c:url value="./add"/>'>Add new event</a>
+				</div>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">
+				<div class="menu-item">
+					<a href='<c:url value="./not-accepted-events"/>'>List of unaccepted events</a>
+				</div>
+			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<div class="menu-item" id="register-item">
 					<a href='<c:url value="./register"/>'>Sing in</a>
@@ -39,7 +46,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<div class="menu-item" id="hello-item">
-					Hello <sec:authentication property="principal.username" />
+					Hello ${user.nick}
 				</div>
 			</sec:authorize>
 			

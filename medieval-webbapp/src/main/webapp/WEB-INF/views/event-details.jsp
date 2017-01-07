@@ -23,11 +23,19 @@
 						<spring:url value="/event-details-${medievalEvent.id }/sing" var="url" />
 						<form:form action="${url}" method="post">
 					 		<input type="submit" value="Sing for this Event"/>
-						</form:form>	
+						</form:form>
 					</sec:authorize>
+					<c:set var="status" value="${medievalEvent.accepted}"/>
+					<c:if test="${false == status}">
+						<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">									
+							<form:form id="accept-${medievalEvent.id}" action="./accept-${medievalEvent.id}" method="POST" />
+								<input class="button" type="submit" value="Accept Event" form="accept-${medievalEvent.id}" />						
+						</sec:authorize>
+					</c:if>
 				</div>	
 			<c:forEach items="${medievalEvent.participants }" var="participant" varStatus="index">
 				<p>${index.index + 1}. ${participant.nick} from ${participant.team}</p>
 			</c:forEach>
+			
 		</div>
 </t:page>	
