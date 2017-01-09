@@ -19,7 +19,7 @@ public class NotAcceptedEventsController extends PageController {
 	}
 	
 	@PostMapping("/accept-{id}")
-	public String postAcceptEvent(@PathVariable("id") Long id, Model model){
+	public String postAcceptEvent(@PathVariable("id") Long id){
 		medievalEventService.acceptEvent(id);
 		return "redirect:not-accepted-events";
 	}

@@ -36,5 +36,9 @@ public class MedievalEventService {
 		
 	}
 
+	public void deleteEvent(Long id) {
+		medievalEventDao.delete(id);		
+	}
+
 
 }

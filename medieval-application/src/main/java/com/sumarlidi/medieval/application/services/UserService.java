@@ -67,7 +67,7 @@ public class UserService {
 		return userDao.existsByEmail(userEmail);
 	}
 	public void addIfNotExist(User user, String roleName) {
-		if(!ifUserNickExist(user.getNick())){
+		if(!ifUserEmailExist(user.getEmail())){
 			addUserWithRole(user,roleName);
 		}
 		
