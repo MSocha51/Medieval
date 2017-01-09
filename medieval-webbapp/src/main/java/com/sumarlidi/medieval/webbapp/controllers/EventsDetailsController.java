@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,7 +83,12 @@ public class EventsDetailsController extends PageController {
 		} else {
 			return "redirect:/event-details-" + eventId;
 		}
-
+	}
+	@PreAuthorize(value = "hasAnyRole('ROLE_MOD','ROLE_ADMIN')")
+	@RequestMapping({ "/event-details-{id}/delete", "/event-{id}/delete" })
+	public String deleteEvent(@PathVariable("id")Long id){
+		medievalEventService.deleteEvent(id);
+		return "redirect:/list";
 	}
 
 	private void changeEventAndAdd(EditEventDTO editDto, MedievalEvent event) {

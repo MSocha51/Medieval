@@ -26,14 +26,18 @@
 				</form:form>
 			</sec:authorize>
 			<c:set var="status" value="${medievalEvent.accepted}" />
-			<c:if test="${false == status}">
-				<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">
+			<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">
+				<c:if test="${false == status}">				
 					<form:form id="accept-${medievalEvent.id}"
 						action="./accept-${medievalEvent.id}" method="POST" />
 					<input class="button" type="submit" value="Accept Event"
-						form="accept-${medievalEvent.id}" />
-				</sec:authorize>
-			</c:if>
+						form="accept-${medievalEvent.id}" />				
+				</c:if>
+					<form:form id="${url }/delete"
+						action="${url }/delete" method="POST" />
+					<input class="button" type="submit" value="Delete event"
+						form="${url }/delete" />
+			</sec:authorize>
 			<c:if test="${user.email == medievalEvent.owner.email}">
 				<form:form id="edit-${medievalEvent.id}" action="${url }/edit"  method = "GET" />
 				<input class="button" type="submit" value="Edit Event"
