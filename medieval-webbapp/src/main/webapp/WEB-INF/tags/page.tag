@@ -39,6 +39,11 @@
 					<a href='<c:url value="/not-accepted-events"/>'>List of unaccepted events</a>
 				</div>
 			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div class="menu-item">
+					<a href='<c:url value="/users"/>'>List of users</a>
+				</div>
+			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<div class="menu-item" id="register-item">
 					<a href='<c:url value="/register"/>'>Sing in</a>
