@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sumarlidi.medieval.application.services.UserService;
 import com.sumarlidi.medieval.domain.MedievalEvent;
+import com.sumarlidi.medieval.domain.User;
 import com.sumarlidi.medieval.webbapp.dtos.EditEventDTO;
 import com.sumarlidi.medieval.webbapp.exceptions.EventLackOfVacanciesException;
 
@@ -33,8 +34,13 @@ public class EventsDetailsController extends PageController {
 		if ("fasle".equals(vacanices)) {
 			model.addAttribute("eventFullMsg", "Event is full");
 		}
+		User user = getActiveUser();
 		MedievalEvent event = medievalEventService.getEventById(id);
-		model.addAttribute("medievalEvent", event);		
+		Boolean ifOwnerOrMod;
+		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) ifOwnerOrMod=true;
+		else ifOwnerOrMod=false;
+		model.addAttribute("ifOwnerOrMod", ifOwnerOrMod);		
+		model.addAttribute("medievalEvent", event);
 		return "event-details";
 
 	}
@@ -56,8 +62,8 @@ public class EventsDetailsController extends PageController {
 	@GetMapping({ "/event-details-{id}/edit", "/event-{id}/edit" })
 	public String getEditEvent(@PathVariable("id") Long eventId, Model model) {
 		MedievalEvent event = medievalEventService.getEventById(eventId);
-		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		if (email.equals(event.getOwner().getEmail())) {
+		User user = getActiveUser();
+		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) {
 			EditEventDTO editDto = ecrateEditEventDTOAndAddAttribute(event);
 			model.addAttribute("editEventDto", editDto);
 			return "edit-event";
@@ -71,8 +77,8 @@ public class EventsDetailsController extends PageController {
 	public String postEditEvent(@Valid @ModelAttribute("editEventDto") EditEventDTO editDto, BindingResult result,
 			@PathVariable("id") Long eventId, Model model) {
 		MedievalEvent event = medievalEventService.getEventById(eventId);
-		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		if (email.equals(event.getOwner().getEmail())) {
+		User user = getActiveUser();
+		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) {
 			if (result.hasErrors()) {
 				model.addAttribute(BindingResult.class.getName() + ".editEventDto", result);
 				return "edit-event";
@@ -84,9 +90,10 @@ public class EventsDetailsController extends PageController {
 			return "redirect:/event-details-" + eventId;
 		}
 	}
+
 	@PreAuthorize(value = "hasAnyRole('ROLE_MOD','ROLE_ADMIN')")
 	@RequestMapping({ "/event-details-{id}/delete", "/event-{id}/delete" })
-	public String deleteEvent(@PathVariable("id")Long id){
+	public String deleteEvent(@PathVariable("id") Long id) {
 		medievalEventService.deleteEvent(id);
 		return "redirect:/list";
 	}
