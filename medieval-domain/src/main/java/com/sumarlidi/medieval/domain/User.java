@@ -35,7 +35,7 @@ public class User {
 			inverseJoinColumns= @JoinColumn(name="event_id", referencedColumnName="id"))
 	private Set<MedievalEvent> signedEvents =new HashSet<MedievalEvent>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;	
 	@OneToMany(mappedBy="owner",fetch = FetchType.EAGER)

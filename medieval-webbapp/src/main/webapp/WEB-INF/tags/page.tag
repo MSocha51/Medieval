@@ -39,6 +39,11 @@
 					<a href='<c:url value="/not-accepted-events"/>'>List of unaccepted events</a>
 				</div>
 			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div class="menu-item">
+					<a href='<c:url value="/users"/>'>List of users</a>
+				</div>
+			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<div class="menu-item" id="register-item">
 					<a href='<c:url value="/register"/>'>Sing in</a>
@@ -46,7 +51,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<div class="menu-item" id="hello-item">
-					<a href='<c:url value="/profile"/>'>Hello ${user.nick}</a>
+					<a href='<c:url value="/profile-${user.id}"/>'>Hello ${user.nick}</a>
 				</div>
 				<div class="menu-item" id="logout-item">
 					<a href='<c:url value="/logout"/>'>Sing out</a>

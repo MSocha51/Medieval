@@ -32,16 +32,16 @@
 						action="./accept-${medievalEvent.id}" method="POST" />
 					<input class="button" type="submit" value="Accept Event"
 						form="accept-${medievalEvent.id}" />				
-				</c:if>
-					<form:form id="${url }/delete"
-						action="${url }/delete" method="POST" />
-					<input class="button" type="submit" value="Delete event"
-						form="${url }/delete" />
+				</c:if>		
 			</sec:authorize>
-			<c:if test="${user.email == medievalEvent.owner.email}">
+			<c:if test="${ifOwnerOrMod}">
 				<form:form id="edit-${medievalEvent.id}" action="${url }/edit"  method = "GET" />
 				<input class="button" type="submit" value="Edit Event"
 					form="edit-${medievalEvent.id}" />
+				<form:form id="${url }/delete"
+						action="${url }/delete" method="POST" />
+				<input class="button" type="submit" value="Delete event"
+					form="${url }/delete" />
 			</c:if>
 		</div>
 		<c:forEach items="${medievalEvent.participants }" var="participant"

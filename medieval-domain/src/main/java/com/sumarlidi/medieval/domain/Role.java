@@ -16,7 +16,7 @@ public class Role {
 	private Long id;
 	@Column(nullable=false, unique=true)
 	private String role;
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="role")
+	@OneToMany(mappedBy="role")
 	private Set<User> users =new HashSet<User>();
 	
 	@Override
