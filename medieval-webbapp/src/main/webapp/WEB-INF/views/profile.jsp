@@ -7,19 +7,19 @@
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<t:page title="${user.nick } profile!">
+<t:page title="${userProfile.nick } profile!">
 		<div class="article">
-				<h3>${user.nick }</h3>
-				Team:${user.team }<br />
-				Email:${user.email }<br />
+				<h3>${userProfile.nick }</h3>
+				Team:${userProfile.team }<br />
+				Email:${userProfile.email }<br />
 				
 			Owned Events:<br />	
-			<c:forEach items="${user.ownEvents}" var="event" varStatus="index">
+			<c:forEach items="${userProfile.ownEvents}" var="event" varStatus="index">
 				<a href="./event-${event.id}">${index.index + 1}. ${event.name}</a><br />
 			</c:forEach>
-			<c:if test="${!(empty user.signedEvents)}" >
+			<c:if test="${!(empty userProfile.signedEvents)}" >
 			Incoming Event:<br />
-				<c:forEach items="${user.signedEvents}" var="event" varStatus="index">
+				<c:forEach items="${userProfile.signedEvents}" var="event" varStatus="index">
 					<a href="./event-${event.id}">${index.index + 1}. ${event.name}</a><br />
 				</c:forEach>
 			</c:if>

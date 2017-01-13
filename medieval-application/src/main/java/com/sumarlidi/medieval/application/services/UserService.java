@@ -72,4 +72,12 @@ public class UserService {
 		}
 		
 	}
+	public void deleteUser(Long id) {
+		userDao.delete(id);
+	}
+	public void promoteUser(Long id){
+		User user = userDao.findOne(id);
+		user.setRole(roleDao.findByRole("ROLE_MOD"));
+		userDao.save(user);
+	}
 }

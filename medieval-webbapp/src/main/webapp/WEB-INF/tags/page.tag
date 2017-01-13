@@ -51,7 +51,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<div class="menu-item" id="hello-item">
-					<a href='<c:url value="/profile"/>'>Hello ${user.nick}</a>
+					<a href='<c:url value="/profile-${user.id}"/>'>Hello ${user.nick}</a>
 				</div>
 				<div class="menu-item" id="logout-item">
 					<a href='<c:url value="/logout"/>'>Sing out</a>
