@@ -13,11 +13,11 @@
 		<div class="event-item">
 			<fmt:formatDate value="${event.startDate }" type="date" pattern="dd-MM-yyyy"
 				var="eventDate"/>
-				<h2>${event.name }</h2>
+				<c:out value="<h2>${event.name }</h2>"/>
 				
-				<p>${event.shortDescription }</p>
+				<c:out value="<p>${event.shortDescription }</p>"/>
 				
-				Start:${eventDate}
+				<c:out value="Start:${eventDate}"/>
 				<br />
 				<input class="button" type="submit" value="Accept Event" form="accept-${event.id}" />
 		</div>

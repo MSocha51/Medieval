@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.HtmlUtils;
 
 import com.sumarlidi.medieval.application.services.UserService;
 import com.sumarlidi.medieval.domain.User;
+import com.sumarlidi.medieval.webbapp.dtos.EditEventDTO;
 import com.sumarlidi.medieval.webbapp.dtos.RegisterDTO;
 
 @Controller
@@ -40,17 +42,27 @@ public class LoginAndRegisterController extends PageController {
 			model.addAttribute(BindingResult.class.getName()+".registerDTO", result);
 			return "register";
 		}else{
-			User newUser = new User();
-			newUser.setNick(registerDTO.getNick());
-			newUser.setEmail(registerDTO.getEmail());
-			newUser.setTeam(registerDTO.getTeam());
-			newUser.setPassword(registerDTO.getPassword());
-			userService.addUser(newUser);
+			createUserAndAdd(registerDTO);			
 			return "redirect:list";
 		}
 	}
 	
-    @GetMapping("/login")
+    private void createUserAndAdd(RegisterDTO registerDTO) {
+		User newUser = new User();
+		EncodeHtmlEntities(registerDTO);
+		newUser.setNick(registerDTO.getNick());
+		newUser.setEmail(registerDTO.getEmail());
+		newUser.setTeam(registerDTO.getTeam());
+		newUser.setPassword(registerDTO.getPassword());
+		userService.addUser(newUser);
+	}
+    
+    private void EncodeHtmlEntities(RegisterDTO registerDTO) {
+    	registerDTO.setNick(HtmlUtils.htmlEscape(registerDTO.getNick(), "UTF-8"));
+    	registerDTO.setTeam(HtmlUtils.htmlEscape(registerDTO.getTeam(), "UTF-8"));
+    }
+
+	@GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");

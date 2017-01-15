@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.HtmlUtils;
 
 import com.sumarlidi.medieval.application.services.UserService;
 import com.sumarlidi.medieval.domain.MedievalEvent;
 import com.sumarlidi.medieval.domain.User;
+import com.sumarlidi.medieval.webbapp.dtos.AddEventsDTO;
 import com.sumarlidi.medieval.webbapp.dtos.EditEventDTO;
 import com.sumarlidi.medieval.webbapp.exceptions.EventLackOfVacanciesException;
 
@@ -99,10 +101,16 @@ public class EventsDetailsController extends PageController {
 	}
 
 	private void changeEventAndAdd(EditEventDTO editDto, MedievalEvent event) {
+		EncodeHtmlEntities(editDto);
 		event.setDescription(editDto.getDescription());
 		event.setShortDescription(editDto.getShortDescription());
 		event.setName(editDto.getName());
 		medievalEventService.add(event);
+	}
+	private void EncodeHtmlEntities(EditEventDTO editDto) {
+		editDto.setName(HtmlUtils.htmlEscape(editDto.getName(), "UTF-8"));
+		editDto.setDescription(HtmlUtils.htmlEscape(editDto.getDescription(), "UTF-8"));
+		editDto.setShortDescription(HtmlUtils.htmlEscape(editDto.getShortDescription(), "UTF-8"));
 	}
 
 	private EditEventDTO ecrateEditEventDTOAndAddAttribute(MedievalEvent event) {

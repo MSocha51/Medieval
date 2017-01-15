@@ -12,12 +12,12 @@
 	<div class="article">
 		<fmt:formatDate value="${medievalEvent.startDate }" type="date"
 			pattern="dd-MM-yyyy" var="eventDate" />
-		<h3>${medievalEvent.name }</h3>
+		<c:out value="<h3>${medievalEvent.name }</h3>" />
 
-		<p>${medievalEvent.description }</p>
+		<c:out value="<p>${medievalEvent.description }</p>" />
 
-		Start:${eventDate} <br />
-		<h2>${eventFullMsg}</h2>
+		<c:out value="Start:${eventDate} <br />" />
+		<c:out value="<h2>${eventFullMsg}</h2>" />
 		<div id="sing" class="form">
 			<spring:url value="/event-details-${medievalEvent.id }" var="url" />
 			<sec:authorize access="isAuthenticated()">
@@ -46,7 +46,7 @@
 		</div>
 		<c:forEach items="${medievalEvent.participants }" var="participant"
 			varStatus="index">
-			<p>${index.index + 1}. ${participant.nick} from ${participant.team}</p>
+			<c:out value="<p>${index.index + 1}. ${participant.nick} from ${participant.team}</p>" />
 		</c:forEach>
 
 	</div>

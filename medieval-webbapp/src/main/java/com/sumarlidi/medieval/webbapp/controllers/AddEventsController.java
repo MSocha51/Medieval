@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.util.HtmlUtils;
+
 import com.sumarlidi.medieval.domain.MedievalEvent;
 import com.sumarlidi.medieval.webbapp.dtos.AddEventsDTO;
 
@@ -38,6 +40,7 @@ public class AddEventsController extends PageController {
 
 	private void createEventAndAdd(AddEventsDTO addEventsDTO) {
 		MedievalEvent event = new MedievalEvent();
+		EncodeHtmlEntities(addEventsDTO);
 		event.setName(addEventsDTO.getName());
 		event.setPromoter(addEventsDTO.getPromoter());
 		event.setMaxParticipants(addEventsDTO.getMaxParticipants());
@@ -48,5 +51,12 @@ public class AddEventsController extends PageController {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		event.setOwner(usersService.getUserByEmail(email));
 		medievalEventService.add(event);
+	}
+
+	private void EncodeHtmlEntities(AddEventsDTO addEventsDTO) {
+		addEventsDTO.setName(HtmlUtils.htmlEscape(addEventsDTO.getName(), "UTF-8"));
+		addEventsDTO.setPromoter(HtmlUtils.htmlEscape(addEventsDTO.getPromoter(), "UTF-8"));
+		addEventsDTO.setDescription(HtmlUtils.htmlEscape(addEventsDTO.getDescription(), "UTF-8"));
+		addEventsDTO.setShortDescription(HtmlUtils.htmlEscape(addEventsDTO.getShortDescription(), "UTF-8"));
 	}
 }
