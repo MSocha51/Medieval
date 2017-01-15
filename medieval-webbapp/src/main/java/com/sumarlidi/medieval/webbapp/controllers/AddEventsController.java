@@ -28,9 +28,10 @@ public class AddEventsController extends PageController {
 	@PostMapping(value = "/add")
 	public String addMedivalEvent(@Valid @ModelAttribute("addEventsDTO") AddEventsDTO addEventsDTO,
 			BindingResult result, Model model) {
-		model.addAttribute("addEventsDTO", new AddEventsDTO());
+	
 		if (result.hasErrors()) {
-			model.addAttribute(BindingResult.class.getName() + ".addEventsDTO", result);
+			model.addAttribute("addEventsDTO", addEventsDTO);
+			//model.addAttribute(BindingResult.class.getName() + ".addEventsDTO", result);
 			return "add";
 		} else {
 			createEventAndAdd(addEventsDTO);
@@ -43,7 +44,7 @@ public class AddEventsController extends PageController {
 		EncodeHtmlEntities(addEventsDTO);
 		event.setName(addEventsDTO.getName());
 		event.setPromoter(addEventsDTO.getPromoter());
-		event.setMaxParticipants(addEventsDTO.getMaxParticipants());
+		event.setMaxParticipants(Integer.parseInt(addEventsDTO.getMaxParticipants()));
 		event.setDescription(addEventsDTO.getDescription());
 		event.setStartDate(addEventsDTO.getStartDate());
 		event.setShortDescription(addEventsDTO.getShortDescription());

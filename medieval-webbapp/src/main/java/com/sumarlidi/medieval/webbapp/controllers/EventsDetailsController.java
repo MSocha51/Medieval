@@ -39,9 +39,11 @@ public class EventsDetailsController extends PageController {
 		User user = getActiveUser();
 		MedievalEvent event = medievalEventService.getEventById(id);
 		Boolean ifOwnerOrMod;
-		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) ifOwnerOrMod=true;
-		else ifOwnerOrMod=false;
-		model.addAttribute("ifOwnerOrMod", ifOwnerOrMod);		
+		if (checkIfAdminOrMod(user) || event.getOwner().equals(user))
+			ifOwnerOrMod = true;
+		else
+			ifOwnerOrMod = false;
+		model.addAttribute("ifOwnerOrMod", ifOwnerOrMod);
 		model.addAttribute("medievalEvent", event);
 		return "event-details";
 
@@ -67,6 +69,7 @@ public class EventsDetailsController extends PageController {
 		User user = getActiveUser();
 		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) {
 			EditEventDTO editDto = ecrateEditEventDTOAndAddAttribute(event);
+			model.addAttribute("medievalEvent",event);
 			model.addAttribute("editEventDto", editDto);
 			return "edit-event";
 		} else {
@@ -107,6 +110,7 @@ public class EventsDetailsController extends PageController {
 		event.setName(editDto.getName());
 		medievalEventService.add(event);
 	}
+
 	private void EncodeHtmlEntities(EditEventDTO editDto) {
 		editDto.setName(HtmlUtils.htmlEscape(editDto.getName(), "UTF-8"));
 		editDto.setDescription(HtmlUtils.htmlEscape(editDto.getDescription(), "UTF-8"));

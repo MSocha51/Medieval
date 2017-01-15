@@ -13,9 +13,11 @@
 	<c:forEach items="${listOfUsers}" var="userFor" varStatus="index">
 		<a href='<c:url value="profile-${userFor.id }"/>'><c:out
 				value="${userFor.nick }-${userFor.email }" /></a>
-		<strong><a href='<c:url value="profile-${userFor.id }/delete"/>'>Delete</a></strong>
+		<strong><a
+			href='<c:url value="profile-${userFor.id }/delete"/>'>Delete</a></strong>
 		<c:if test='${userFor.role.role == "ROLE_USER" }'>
-			<strong><a href='<c:url value="profile-${userFor.id }/promote"/>'>Promote</a></strong>
+			<strong><a
+				href='<c:url value="profile-${userFor.id }/promote"/>'>Promote</a></strong>
 		</c:if>
 		<br />
 	</c:forEach>

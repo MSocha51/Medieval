@@ -78,7 +78,7 @@
 				<c:if test="${empty listOfEvents }">There are no incoming events</c:if>
 				<c:forEach varStatus="status" var="event" items="${listOfEvents }"
 					end="25">
-					<a href='<c:url value="/event-details-${event.id}"/>'>${status.index + 1}. ${event.name }</a>
+					<a href='<c:url value="/event-details-${event.id}"/>'><c:out value="${status.index + 1}. ${event.name }" /></a>
 					<br />  
 				</c:forEach>			
 			</div>

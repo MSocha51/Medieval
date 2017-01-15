@@ -4,7 +4,9 @@ import java.util.Date;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,9 +30,10 @@ public class AddEventsDTO {
 	private String description;
 	
 	private String shortDescription;
-	@Range(min=0, message="Number of participants must by higher than 0")
-	@Digits(message="Must be a number", fraction = 0, integer = 3)
-	private int maxParticipants;
+	@NotBlank(message="Cannot be black")
+	@Min(value=1, message="Number of participants must by higher than 0")
+	@Digits(fraction = 0, integer = 5, message="Must be number")
+	private String maxParticipants;
 	
 	
 	public String getName() {
@@ -65,11 +68,11 @@ public class AddEventsDTO {
 		this.description = description;
 	}
 
-	public int getMaxParticipants() {
+	public String getMaxParticipants() {
 		return maxParticipants;
 	}
 
-	public void setMaxParticipants(int maxParticipants) {
+	public void setMaxParticipants(String maxParticipants) {
 		this.maxParticipants = maxParticipants;
 	}
 

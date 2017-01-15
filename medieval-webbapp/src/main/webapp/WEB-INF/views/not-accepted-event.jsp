@@ -13,9 +13,9 @@
 		<div class="event-item">
 			<fmt:formatDate value="${event.startDate }" type="date" pattern="dd-MM-yyyy"
 				var="eventDate"/>
-				<c:out value="<h2>${event.name }</h2>"/>
+				<h2><c:out value="${event.name }"/></h2>
 				
-				<c:out value="<p>${event.shortDescription }</p>"/>
+				<p><c:out value="${event.shortDescription }"/></p>
 				
 				<c:out value="Start:${eventDate}"/>
 				<br />
