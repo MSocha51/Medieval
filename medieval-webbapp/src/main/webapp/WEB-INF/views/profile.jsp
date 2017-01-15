@@ -9,9 +9,9 @@
 
 <t:page title="${userProfile.nick } profile!">
 		<div class="article">
-				<c:out value="<h3>${userProfile.nick }</h3>" />
-				<c:out value="Team:${userProfile.team }<br />" />
-				<c:out value="Email:${userProfile.email }<br />" />
+				<h3><c:out value="${userProfile.nick }" /></h3>
+				<c:out value="Team:${userProfile.team }" /><br />
+				<c:out value="Email:${userProfile.email }" /><br />
 				
 			Owned Events:<br />	
 			<c:forEach items="${userProfile.ownEvents}" var="event" varStatus="index">
