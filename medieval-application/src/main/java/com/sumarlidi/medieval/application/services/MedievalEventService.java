@@ -45,5 +45,9 @@ public class MedievalEventService {
 		medievalEventDao.delete(id);		
 	}
 
+	public Iterable<MedievalEvent> getEventByDate(Date date) {
+		return medievalEventDao.getEventByStartDateAndAccepted(date, true);
+	}
+
 
 }

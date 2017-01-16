@@ -9,7 +9,7 @@ public class IndexAndAboutController extends PageController {
 	
 	@RequestMapping({"index","/"})
 	public String index(Model model){
-		return "index";
+		return "redirect:/list";
 	}
 	
 	@RequestMapping("about-me")
