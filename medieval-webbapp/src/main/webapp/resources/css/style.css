@@ -192,13 +192,20 @@ body a:link, body a:visited, body a:hover, body a:active {
 	
 }
 .article{
-	text-align: justify;
+	text-align: left;
 }
 .article a{
 	color: gray;
 	font-weight: 700;
-	padding-left:4em;
-
+}
+.article #contact{
+	float: left;
+	margin-left: 3em;
+	pading: 10px;
+}
+.article img{
+	float: right;
+	margin-right: 10em;
 }
 
 #footer {

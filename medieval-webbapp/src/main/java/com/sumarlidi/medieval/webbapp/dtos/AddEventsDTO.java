@@ -32,7 +32,7 @@ public class AddEventsDTO {
 	private String shortDescription;
 	@NotBlank(message="Cannot be black")
 	@Min(value=1, message="Number of participants must by higher than 0")
-	@Digits(fraction = 0, integer = 5, message="Must be number")
+	@Digits(fraction = 0, integer = 5, message="Must be number from 0 to 100000")
 	private String maxParticipants;
 	
 	
