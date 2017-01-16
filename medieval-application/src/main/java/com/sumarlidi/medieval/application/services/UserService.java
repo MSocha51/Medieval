@@ -43,7 +43,7 @@ public class UserService {
 	}
 
 	public User getUserByEmail(String Email) {
-		return userDao.findByEmail(Email);
+		return userDao.findByEmailIgnoreCase(Email);
 
 	}
 

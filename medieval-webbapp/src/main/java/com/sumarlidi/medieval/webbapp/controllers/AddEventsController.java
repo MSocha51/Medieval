@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.util.HtmlUtils;
+
 import com.sumarlidi.medieval.domain.MedievalEvent;
 import com.sumarlidi.medieval.webbapp.dtos.AddEventsDTO;
 
@@ -26,9 +28,10 @@ public class AddEventsController extends PageController {
 	@PostMapping(value = "/add")
 	public String addMedivalEvent(@Valid @ModelAttribute("addEventsDTO") AddEventsDTO addEventsDTO,
 			BindingResult result, Model model) {
-		model.addAttribute("addEventsDTO", new AddEventsDTO());
+	
 		if (result.hasErrors()) {
-			model.addAttribute(BindingResult.class.getName() + ".addEventsDTO", result);
+			model.addAttribute("addEventsDTO", addEventsDTO);
+			//model.addAttribute(BindingResult.class.getName() + ".addEventsDTO", result);
 			return "add";
 		} else {
 			createEventAndAdd(addEventsDTO);
@@ -38,9 +41,10 @@ public class AddEventsController extends PageController {
 
 	private void createEventAndAdd(AddEventsDTO addEventsDTO) {
 		MedievalEvent event = new MedievalEvent();
+		EncodeHtmlEntities(addEventsDTO);
 		event.setName(addEventsDTO.getName());
 		event.setPromoter(addEventsDTO.getPromoter());
-		event.setMaxParticipants(addEventsDTO.getMaxParticipants());
+		event.setMaxParticipants(Integer.parseInt(addEventsDTO.getMaxParticipants()));
 		event.setDescription(addEventsDTO.getDescription());
 		event.setStartDate(addEventsDTO.getStartDate());
 		event.setShortDescription(addEventsDTO.getShortDescription());
@@ -48,5 +52,12 @@ public class AddEventsController extends PageController {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		event.setOwner(usersService.getUserByEmail(email));
 		medievalEventService.add(event);
+	}
+
+	private void EncodeHtmlEntities(AddEventsDTO addEventsDTO) {
+		addEventsDTO.setName(HtmlUtils.htmlEscape(addEventsDTO.getName(), "UTF-8"));
+		addEventsDTO.setPromoter(HtmlUtils.htmlEscape(addEventsDTO.getPromoter(), "UTF-8"));
+		addEventsDTO.setDescription(HtmlUtils.htmlEscape(addEventsDTO.getDescription(), "UTF-8"));
+		addEventsDTO.setShortDescription(HtmlUtils.htmlEscape(addEventsDTO.getShortDescription(), "UTF-8"));
 	}
 }

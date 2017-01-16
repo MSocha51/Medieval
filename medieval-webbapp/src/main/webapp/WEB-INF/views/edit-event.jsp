@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<t:page title="Add your event">
+<t:page title="Edit your event">
 	<div id="add-event" class="form">
 		<spring:url value="/event-details-${medievalEvent.id }/edit" var="url" />
 		<form:form action="${url}" method="POST" modelAttribute="editEventDto">

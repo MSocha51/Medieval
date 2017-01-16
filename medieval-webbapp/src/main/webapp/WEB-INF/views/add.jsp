@@ -27,8 +27,8 @@
 			</div>
 			<div class="input-conteiner">
 				Number of participants:<br />
-				<form:input path="maxParticipants" style="width:50px;" />
-				<form:errors path="maxParticipants" cssClass="error" element="div" />
+				<form:input type="number" min="0" path="maxParticipants" style="width:50px;" />
+				<form:errors path="maxParticipants" cssClass="error" element="div"/>
 			</div>
 			<div style="clear: both"></div>
 			<input type="submit" value="Add Event!" />
