@@ -21,7 +21,7 @@
 			<form:errors path="description" cssClass="error" element="div" />
 			<br />
 			<div class="input-conteiner">
-				Event start date:<br />
+				Event start date: (YYYY-MM-DD)<br />
 				<form:input path="startDate" type="date" style="width:250px;" />
 				<form:errors path="startDate" cssClass="error" element="div" />
 			</div>

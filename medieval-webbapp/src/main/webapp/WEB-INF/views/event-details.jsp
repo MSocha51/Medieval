@@ -43,12 +43,14 @@
 			</sec:authorize>
 			<c:if test="${ifOwnerOrMod}">
 				<form:form id="edit-${medievalEvent.id}" action="${url }/edit"
-					method="GET" />
+					method="GET" >
 				<input class="button" type="submit" value="Edit Event"
-					form="edit-${medievalEvent.id}" />
-				<form:form id="${url }/delete" action="${url }/delete" method="POST" />
+					form="edit-${medievalEvent.id}" /></form:form>
+				<sec:authorize access="hasAnyRole('ROLE_MOD','ROLE_ADMIN')">
+				<form:form id="${url }/delete" action="${url }/delete" method="POST" >
 				<input class="button" type="submit" value="Delete event"
-					form="${url }/delete" />
+					form="${url }/delete" /></form:form>
+				</sec:authorize>
 			</c:if>
 		</div>
 		<c:forEach items="${medievalEvent.participants }" var="participant"

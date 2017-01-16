@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sumarlidi.medieval.application.daos.MedievalEventDAO;
+import com.sumarlidi.medieval.application.daos.UserDAO;
 import com.sumarlidi.medieval.domain.MedievalEvent;
+import com.sumarlidi.medieval.domain.User;
 @Service
 public class MedievalEventService {
 	
 	@Autowired
 	private MedievalEventDAO medievalEventDao;
+	@Autowired
+	private UserDAO userDao;
 	
 	public void acceptEvent(Long id) {
 		MedievalEvent event = getEventById(id);
@@ -41,7 +45,7 @@ public class MedievalEventService {
 		
 	}
 
-	public void deleteEvent(Long id) {
+	public void deleteEvent(Long id) {		
 		medievalEventDao.delete(id);		
 	}
 

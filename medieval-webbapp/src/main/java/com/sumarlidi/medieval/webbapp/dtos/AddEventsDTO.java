@@ -22,9 +22,9 @@ public class AddEventsDTO {
 	@NotBlank(message="Cannot be blank")
 	private String promoter;
 	
-	@NotNull(message="Cannot be blank")
-	@Future(message="Date should relate to future")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@NotNull(message="Cannot be blank")
+	@Future(message="Date should relate to future")	
 	private Date startDate;
 	
 	private String description;

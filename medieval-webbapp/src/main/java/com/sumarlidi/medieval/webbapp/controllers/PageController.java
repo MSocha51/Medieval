@@ -1,5 +1,7 @@
 package com.sumarlidi.medieval.webbapp.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,14 +23,17 @@ public abstract class PageController {
 	public Iterable<MedievalEvent> events() {
 		return medievalEventService.getAcceptedEventsInOrder();
 	}
-
 	@ModelAttribute("user")
-	public User getActiveUser() {
+	public User getUser(){
+		return getActiveUser().orElse(null);
+	}
+	
+	public Optional<User> getActiveUser() {
 		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
 			String email = SecurityContextHolder.getContext().getAuthentication().getName();
-			return usersService.getUserByEmail(email);
+			return Optional.ofNullable(usersService.getUserByEmail(email));
 		} else
-			return null;
+			return Optional.empty();
 
 	}
 	@ModelAttribute("listOfUsers")

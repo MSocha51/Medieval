@@ -72,7 +72,9 @@ public class UserService {
 		}
 		
 	}
+	@Transactional
 	public void deleteUser(Long id) {
+		
 		userDao.delete(id);
 	}
 	public void promoteUser(Long id){

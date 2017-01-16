@@ -1,6 +1,7 @@
 package com.sumarlidi.medieval.webbapp.controllers;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -36,10 +37,9 @@ public class EventsDetailsController extends PageController {
 		if ("fasle".equals(vacanices)) {
 			model.addAttribute("eventFullMsg", "Event is full");
 		}
-		User user = getActiveUser();
 		MedievalEvent event = medievalEventService.getEventById(id);
 		Boolean ifOwnerOrMod;
-		if (checkIfAdminOrMod(user) || event.getOwner().equals(user))
+		if (checkIfActiveUserIsModOrOwner(event))
 			ifOwnerOrMod = true;
 		else
 			ifOwnerOrMod = false;
@@ -66,10 +66,9 @@ public class EventsDetailsController extends PageController {
 	@GetMapping({ "/event-details-{id}/edit", "/event-{id}/edit" })
 	public String getEditEvent(@PathVariable("id") Long eventId, Model model) {
 		MedievalEvent event = medievalEventService.getEventById(eventId);
-		User user = getActiveUser();
-		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) {
+		if (checkIfActiveUserIsModOrOwner(event)) {
 			EditEventDTO editDto = ecrateEditEventDTOAndAddAttribute(event);
-			model.addAttribute("medievalEvent",event);
+			model.addAttribute("medievalEvent", event);
 			model.addAttribute("editEventDto", editDto);
 			return "edit-event";
 		} else {
@@ -82,8 +81,7 @@ public class EventsDetailsController extends PageController {
 	public String postEditEvent(@Valid @ModelAttribute("editEventDto") EditEventDTO editDto, BindingResult result,
 			@PathVariable("id") Long eventId, Model model) {
 		MedievalEvent event = medievalEventService.getEventById(eventId);
-		User user = getActiveUser();
-		if (checkIfAdminOrMod(user) || event.getOwner().equals(user)) {
+		if (checkIfActiveUserIsModOrOwner(event)) {
 			if (result.hasErrors()) {
 				model.addAttribute(BindingResult.class.getName() + ".editEventDto", result);
 				return "edit-event";
@@ -103,7 +101,7 @@ public class EventsDetailsController extends PageController {
 		return "redirect:/list";
 	}
 
-	private void changeEventAndAdd(EditEventDTO editDto, MedievalEvent event) {
+	protected void changeEventAndAdd(EditEventDTO editDto, MedievalEvent event) {
 		EncodeHtmlEntities(editDto);
 		event.setDescription(editDto.getDescription());
 		event.setShortDescription(editDto.getShortDescription());
@@ -111,17 +109,31 @@ public class EventsDetailsController extends PageController {
 		medievalEventService.add(event);
 	}
 
-	private void EncodeHtmlEntities(EditEventDTO editDto) {
+	protected void EncodeHtmlEntities(EditEventDTO editDto) {
 		editDto.setName(HtmlUtils.htmlEscape(editDto.getName(), "UTF-8"));
 		editDto.setDescription(HtmlUtils.htmlEscape(editDto.getDescription(), "UTF-8"));
 		editDto.setShortDescription(HtmlUtils.htmlEscape(editDto.getShortDescription(), "UTF-8"));
 	}
 
-	private EditEventDTO ecrateEditEventDTOAndAddAttribute(MedievalEvent event) {
+	protected EditEventDTO ecrateEditEventDTOAndAddAttribute(MedievalEvent event) {
 		EditEventDTO editDto = new EditEventDTO();
 		editDto.setName(event.getName());
 		editDto.setDescription(event.getDescription());
 		editDto.setShortDescription(event.getShortDescription());
 		return editDto;
+	}
+
+	protected Boolean checkIfActiveUserIsModOrOwner(MedievalEvent event) {
+		Optional<User> user = getActiveUser();
+		if(user.isPresent()){
+			return chechIfModOrOwner(user.get(),event);
+		}
+		else return true;
+	}
+
+	private Boolean chechIfModOrOwner(User user, MedievalEvent event) {
+		if(user.equals(event.getOwner()))
+			return true;
+		else return checkIfAdminOrMod(user);
 	}
 }

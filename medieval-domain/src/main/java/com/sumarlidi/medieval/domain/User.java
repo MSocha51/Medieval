@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,34 +15,44 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String nick;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String email;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String password;
-	private String team;	
+	private String team;
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="events_users",
-			joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
-			inverseJoinColumns= @JoinColumn(name="event_id", referencedColumnName="id"))
-	private Set<MedievalEvent> signedEvents =new HashSet<MedievalEvent>();
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="role_id")
-	private Role role;	
-	@OneToMany(mappedBy="owner",fetch = FetchType.EAGER)
-	private Set<MedievalEvent> ownEvents = new HashSet<MedievalEvent>();
-	
+	@JoinTable(name = "events_users", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"))
+	private Set<MedievalEvent> signedEvents = new HashSet<MedievalEvent>();
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "role_id")
+	private Role role;
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+	private Set<MedievalEvent> ownEvents = new HashSet<MedievalEvent>();
+
+	@PreRemove
+	private void prepareToRemove() {
+
+		for (MedievalEvent event : getOwnEvents()) {
+			try {
+				event.setOwner(null);
+			} catch (NullPointerException e){
+				
+			}
+		}
+
+	}
 
 	public void setRole(Role role) {
 		this.role = role;
@@ -143,7 +154,7 @@ public class User {
 			if (other.nick != null)
 				return false;
 		} else if (!nick.equals(other.nick))
-			return false;		
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -165,11 +176,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nick=" + nick + ", email=" + email + ", password=" + password + ", team=" + team
-				+ ", role=" + role+" ]";
+				+ ", role=" + role + " ]";
 	}
-
-	
-	
-	
 
 }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +24,6 @@ public class MedievalEvent {
 
 	@Column(nullable = false)
 	private String name;
-	@Column(nullable = false)
 	private String promoter;
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;
@@ -36,10 +37,24 @@ public class MedievalEvent {
 	@ManyToMany(mappedBy = "signedEvents", fetch = FetchType.EAGER)
 	private Set<User> participants = new HashSet<User>();
 	@ManyToOne
-	@JoinColumn(name="owner_id")
+	@JoinColumn(name = "owner_id")
 	private User owner;
-	
+
 	private Boolean accepted;
+
+	@PreRemove
+	private void prepareToRemove() {
+		try {
+			getOwner().getOwnEvents().remove(this);
+		} catch (NullPointerException e) {
+		}
+		for (User user : getParticipants()) {
+			try {
+				user.getSignedEvents().remove(this);
+			} catch (NullPointerException e) {
+			}
+		}
+	}
 
 	public Boolean getAccepted() {
 		return accepted;
@@ -112,7 +127,6 @@ public class MedievalEvent {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
-	
 
 	public User getOwner() {
 		return owner;
@@ -121,8 +135,6 @@ public class MedievalEvent {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -197,9 +209,5 @@ public class MedievalEvent {
 				+ description + ", shortDescription=" + shortDescription + ", maxParticipants=" + maxParticipants
 				+ ", id=" + id + ", owner=" + owner + ", accepted=" + accepted + "]";
 	}
-
-	
-
-	
 
 }
