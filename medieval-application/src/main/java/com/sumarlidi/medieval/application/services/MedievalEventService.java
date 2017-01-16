@@ -1,5 +1,7 @@
 package com.sumarlidi.medieval.application.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,14 @@ public class MedievalEventService {
 	public Iterable<MedievalEvent> getEvents() {
 		return medievalEventDao.findAll();
 	}
-	public Iterable<MedievalEvent> getAcceptedEvents(){
-		return medievalEventDao.findByAccepted(true);
+	public Iterable<MedievalEvent> getAcceptedEventsInOrder(){
+		return medievalEventDao.findByAcceptedAndStartDateAfterOrderByStartDateAsc(true, new Date());
 	}
 	public Iterable<MedievalEvent> getUnacceptedEvents(){
 		return medievalEventDao.findByAccepted(false);
+	}
+	public Iterable<Date> getEventsDate(){
+		return medievalEventDao.findDistinctStartDateByAccepted(true);
 	}
 
 	public void add(MedievalEvent event) {
