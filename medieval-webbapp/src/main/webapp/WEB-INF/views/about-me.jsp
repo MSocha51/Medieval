@@ -23,7 +23,7 @@
 		<div style="clear: both"></div>
 		<p>Website create for the study project of OPA course. Used
 			technology: JAVA , Spring Framework 4.X (Spring MVC, Spring Data,
-			Spring Security), Hibernate Framework (Validator, HQL), Tomcat V9.0,
+			Spring Security), Hibernate Framework (Validator, Entity Manager), Tomcat V9.0,
 			GitHub, JSP(JSTL, Spring JSP tags), HTML5, CSS3</p>
 	</div>
 </t:page>
