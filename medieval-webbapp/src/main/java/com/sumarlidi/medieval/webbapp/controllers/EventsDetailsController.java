@@ -34,7 +34,7 @@ public class EventsDetailsController extends PageController {
 
 	@RequestMapping({ "/event-details-{id}", "/event-{id}" })
 	public String eventDetails(@PathVariable("id") Long id, Model model, String vacanices) {
-		if ("fasle".equals(vacanices)) {
+		if (vacanices!=null) {
 			model.addAttribute("eventFullMsg", "Event is full");
 		}
 		MedievalEvent event = medievalEventService.getEventById(id);

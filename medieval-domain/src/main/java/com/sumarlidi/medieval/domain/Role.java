@@ -8,13 +8,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="roles", uniqueConstraints =
-@UniqueConstraint(columnNames = "role"))
+@UniqueConstraint(columnNames = "role_name"))
 public class Role {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(nullable=false, unique=true)
+	@Column(name="role_name",nullable=false, unique=true)
 	private String role;
 	@OneToMany(mappedBy="role")
 	private Set<User> users =new HashSet<User>();
