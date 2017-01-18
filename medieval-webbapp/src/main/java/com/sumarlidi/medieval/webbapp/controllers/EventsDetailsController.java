@@ -38,6 +38,7 @@ public class EventsDetailsController extends PageController {
 			model.addAttribute("eventFullMsg", "Event is full");
 		}
 		MedievalEvent event = medievalEventService.getEventById(id);
+		if(event==null) return "redirect:/list";
 		Boolean ifOwnerOrMod;
 		if (checkIfActiveUserIsModOrOwner(event))
 			ifOwnerOrMod = true;
