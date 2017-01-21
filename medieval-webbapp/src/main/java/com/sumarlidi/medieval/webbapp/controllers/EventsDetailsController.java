@@ -129,7 +129,7 @@ public class EventsDetailsController extends PageController {
 		if(user.isPresent()){
 			return chechIfModOrOwner(user.get(),event);
 		}
-		else return true;
+		else return false;
 	}
 
 	private Boolean chechIfModOrOwner(User user, MedievalEvent event) {

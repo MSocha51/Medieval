@@ -41,7 +41,7 @@
 						form="accept-${medievalEvent.id}" />
 				</c:if>
 			</sec:authorize>
-			<c:if test="${ifOwnerOrMod}">
+			<c:if test="${true == ifOwnerOrMod}">
 				<form:form id="edit-${medievalEvent.id}" action="${url }/edit"
 					method="GET" >
 				<input class="button" type="submit" value="Edit Event"

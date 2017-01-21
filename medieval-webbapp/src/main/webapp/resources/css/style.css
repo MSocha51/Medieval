@@ -12,6 +12,10 @@ body a:link, body a:visited, body a:hover, body a:active {
 	text-decoration: none;
 	color: black;
 }
+body #list a:hover,
+body #list a:active {
+	text-decoration: underline;
+}
 
 #conteiner {
 	width: 1200px;
