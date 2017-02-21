@@ -5,7 +5,8 @@ Technologies used:
 Apache Maven
 Apache Tomcat
 Java
-Spring and Hibernate Frameworks
+Spring Framework(Spring MVC, Spring Data, Spring Security)
+Hibernate Framework
 HTML, CSS
 GitHub
 MySQL
