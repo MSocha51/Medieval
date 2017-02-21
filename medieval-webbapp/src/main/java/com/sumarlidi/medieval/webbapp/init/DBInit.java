@@ -27,10 +27,10 @@ public class DBInit implements InitializingBean {
 	}
 	private void userInit(){
 		User admin = new User();
-		admin.setEmail("Sumek@wp.pl");
-		admin.setPassword("DzikieBazie");
-		admin.setNick("Sumarlidi");
-		admin.setTeam("Dziki Bez");
+		admin.setEmail("Admin@mail.pl");
+		admin.setPassword("Mail");
+		admin.setNick("Admin");
+		admin.setTeam("AdminTeam");
 		userService.addIfNotExist(admin,"ROLE_ADMIN");
 	}
 
