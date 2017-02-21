@@ -1,0 +1,4 @@
+Application need MySQL database to a proper operating. Application should creat required scheme during initialization process.
+Information about database are stored in applicationContext.xml and security.xml(path: mediaval-webbapp/src/main/webapp/WEB-INF/)
+
+Aplication create admin account Mail : Admin@mail.pl Password: Admin
